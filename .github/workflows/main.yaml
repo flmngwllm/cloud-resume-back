@@ -4,9 +4,14 @@ on:
     branches:
       - main
       - stage
+    paths:
+      - 'terraform/**'
+
   pull_request:
     branches:
       - main 
+    paths:
+      - 'terraform/**'  
 
 
 env:
@@ -49,7 +54,7 @@ jobs:
 
       - name: Terraform plan
         id: plan
-        run: terraform plan -no-color -input=false out=tfbplan
+        run: terraform plan -no-color -input=false -out=tfbplan
 
       - name: Terraform plan status
         if: steps.plan.outcome == 'failure'

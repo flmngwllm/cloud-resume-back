@@ -3,11 +3,11 @@ resource "aws_dynamodb_table" "web_visit" {
   billing_mode   = "PAY_PER_REQUEST"
   read_capacity  = 20
   write_capacity = 20
-  hash_key       = "Visitors"
-  range_key      = ""
+  hash_key       = "visitor_id"
+  
 
   attribute {
-    name = "Visitors"
+    name = "visitor_id"
     type = "N"
   }
 
@@ -16,16 +16,7 @@ resource "aws_dynamodb_table" "web_visit" {
     enabled        = true
   }
 
-  global_secondary_index {
-    name               = "GameTitleIndex"
-    hash_key           = "GameTitle"
-    range_key          = "TopScore"
-    write_capacity     = 10
-    read_capacity      = 10
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["UserId"]
-  }
-
+  
   tags = {
     Name        = "web-visitor-table"
     Environment = "production"
@@ -39,7 +30,8 @@ resource "aws_dynamodb_table_item" "web_count" {
 
   item = <<ITEM
 {
-  "Visitors": {"N": "0"} 
+  "visitor_id": {"N": 1},
+  "visit_count": {"N": 0} 
 }
 ITEM
 }
