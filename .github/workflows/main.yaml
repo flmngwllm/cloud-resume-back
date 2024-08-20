@@ -23,10 +23,10 @@ jobs:
         shell: bash
     steps:
       - name: Checkout source code
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: Terraform setup
-        uses: hashicorp/setup-terraform@3
+        uses: hashicorp/setup-terraform@v3
 
       - name: Aws credentials
         uses: aws-actions/configure-aws-credentials@v4
