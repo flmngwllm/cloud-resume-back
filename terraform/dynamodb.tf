@@ -30,8 +30,8 @@ resource "aws_dynamodb_table_item" "web_count" {
 
   item = <<ITEM
 {
-  "visitor_id": {"N": 1},
-  "visit_count": {"N": 0} 
+  "visitor_id": {"N": "1"},
+  "visit_count": {"N": "0"} 
 }
 ITEM
 }
