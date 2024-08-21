@@ -10,20 +10,34 @@ resource "aws_api_gateway_resource" "resource" {
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
 
-resource "aws_api_gateway_method" "method" {
-  for_each = toset(["GET", "PUT"])  
+resource "aws_api_gateway_method" "get_method" {
+   
   authorization = "NONE"
-  http_method   = each.key
+  http_method   = "GET"
   resource_id   = aws_api_gateway_resource.resource.id
   rest_api_id   = aws_api_gateway_rest_api.api.id
 }
 
+resource "aws_api_gateway_method" "put_method" {
+  
+  authorization = "NONE"
+  http_method   = "PUT"
+  resource_id   = aws_api_gateway_resource.resource.id
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+}
 
+resource "aws_api_gateway_integration" "get_integration" {
+  
+  http_method = aws_api_gateway_method.get_method.http_method
+  resource_id = aws_api_gateway_resource.resource.id
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  type        = "AWS_PROXY"
+  uri         = aws_lambda_function.lambda.invoke_arn
+}
 
-resource "aws_api_gateway_integration" "integration" {
-  for_each = aws_api_gateway_method.method
-
-  http_method = each.value.http_method
+resource "aws_api_gateway_integration" "put_integration" {
+  
+  http_method = aws_api_gateway_method.put_method.http_method
   resource_id = aws_api_gateway_resource.resource.id
   rest_api_id = aws_api_gateway_rest_api.api.id
   type        = "AWS_PROXY"
@@ -43,8 +57,10 @@ resource "aws_api_gateway_deployment" "deploy" {
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.resource.id,
-      aws_api_gateway_method.method.id,
-      aws_api_gateway_integration.integration.id,
+      aws_api_gateway_get_method.method.id,
+      aws_api_gateway_integration.get_integration.id,
+      aws_api_gateway_get_method.put_method.id,
+      aws_api_gateway_integration.put_integration.id,
     ]))
   }
 
