@@ -21,7 +21,7 @@ env:
 
 jobs: 
   terraform:
-    name: "Apply frontend code changes"     
+    name: "Apply backend code changes"     
     runs-on: ubuntu-latest
     defaults:
       run:
