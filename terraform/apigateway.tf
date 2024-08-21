@@ -57,9 +57,9 @@ resource "aws_api_gateway_deployment" "deploy" {
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.resource.id,
-      aws_api_gateway_get_method.method.id,
+      aws_api_gateway_method.get_method.id,
       aws_api_gateway_integration.get_integration.id,
-      aws_api_gateway_get_method.put_method.id,
+      aws_api_gateway_method.put_method.id,
       aws_api_gateway_integration.put_integration.id,
     ]))
   }
