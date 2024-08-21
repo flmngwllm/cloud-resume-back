@@ -60,6 +60,7 @@ resource "aws_lambda_function" "lambda" {
 
 }
 
+
 resource "aws_lambda_function_url" "test_latest" {
   function_name      = aws_lambda_function.lambda.function_name
   authorization_type = "NONE"
