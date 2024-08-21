@@ -21,8 +21,9 @@ resource "aws_api_gateway_method" "method" {
 
 
 resource "aws_api_gateway_integration" "integration" {
-  
-  http_method = aws_api_gateway_method.method[each.key].http_method
+  for_each = aws_api_gateway_method.method
+
+  http_method = each.value.http_method
   resource_id = aws_api_gateway_resource.resource.id
   rest_api_id = aws_api_gateway_rest_api.api.id
   type        = "AWS_PROXY"
