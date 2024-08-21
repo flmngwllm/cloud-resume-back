@@ -21,11 +21,10 @@ resource "aws_api_gateway_method" "method" {
 
 
 resource "aws_api_gateway_integration" "integration" {
-  for_each = aws_api_gateway_method.method
-
-  http_method = each.value.http_method
-  resource_id = each.value.resource_id
-  rest_api_id = each.value.rest_api_id
+  
+  http_method = aws_api_gateway_method.method.http_method
+  resource_id = aws_api_gateway_resource.resource.id
+  rest_api_id = aws_api_gateway_rest_api.api.id
   type        = "AWS_PROXY"
   uri         = aws_lambda_function.lambda.invoke_arn
 }
@@ -42,9 +41,9 @@ resource "aws_api_gateway_deployment" "deploy" {
     #       resources will show a difference after the initial implementation.
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
-       aws_api_gateway_resource.resource.id,
-      for_each.key,  
-      aws_api_gateway_integration.integration[for_each.key].id,
+      aws_api_gateway_resource.resource.id,
+      aws_api_gateway_method.method.id,
+      aws_api_gateway_integration.integration.id,
     ]))
   }
 
