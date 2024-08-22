@@ -1,6 +1,6 @@
 import boto3
 import json
-from boto3.dynamodb.types import TypeDeserializer
+from decimal import Decimal
 
 dynamodb = boto3.resource('dynamodb')
 
@@ -23,9 +23,8 @@ def lambda_handler(event, context):
 
   updated_count = response['Attributes']['visit_count']
     
-
-  deserializer = TypeDeserializer()
-  updated_count = deserializer.deserialize({'N': str(updated_count)})  
+  if isinstance(updated_count, Decimal):
+        updated_count = int(updated_count)
 
     # Returning the visit_count in a format the JavaScript expects
   return {
