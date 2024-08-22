@@ -4,6 +4,6 @@ output "function_url" {
 
 
 output "api_endpoint" {
-  value       = aws_api_gateway_stage.stage.invoke_url
+  value       = "${aws_api_gateway_stage.stage.invoke_url}/counter"
   description = "Endpoint URL of the deployed API"
 }
