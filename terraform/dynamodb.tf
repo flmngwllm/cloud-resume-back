@@ -9,10 +9,6 @@ resource "aws_dynamodb_table" "web_visit" {
     type = "N"
   }
 
-  attribute {
-    name = "visit_count"
-    type = "N"
-  }
 
   ttl {
     attribute_name = "TimeToExist"
