@@ -9,7 +9,7 @@ def lambda_handler(event, context):
   table = dynamodb.Table('web_visitors')
   response = table.update_item(
       Key={
-          "visitor_id" : "1"
+          "visitor_id" : 1
    },
       UpdateExpression='SET visit_count = visit_count + :val',
       ExpressionAttributeValues={
