@@ -10,6 +10,7 @@ resource "aws_dynamodb_table" "web_visit" {
   }
 
 
+
   ttl {
     attribute_name = "TimeToExist"
     enabled        = true
