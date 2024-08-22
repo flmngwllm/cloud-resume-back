@@ -6,7 +6,7 @@ dynamodb = boto3.resource('dynamodb')
 def lambda_handler(event, context):
   
   
-  table = dynamodb.Table('webvisit')
+  table = dynamodb.Table('web_visitors')
   response = table.update_item(
       Key={
           "visitor_id" : "1"
@@ -28,10 +28,7 @@ def lambda_handler(event, context):
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        'body': {
-            'visit_count': updated_count
-        },
-
+      
         'body': json.dumps({
             'visit_count': updated_count
         })
