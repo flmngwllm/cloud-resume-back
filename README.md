@@ -40,7 +40,7 @@ This is the backend and infrastructure-as-code portion of my Cloud Resume Challe
 │   └── app.py           # Visitor count logic
 ├── .github/workflows/
 │   └── deploy.yml       # GitHub Actions pipeline for Lambda
-
+```
 ## 📁 Related Repositories
 
 - [Frontend Repo](https://github.com/flmngwllm/cloud-resume-front)) 
