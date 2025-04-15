@@ -43,4 +43,4 @@ This is the backend and infrastructure-as-code portion of my Cloud Resume Challe
 ```
 ## 📁 Related Repositories
 
-- [Frontend Repo](https://github.com/flmngwllm/cloud-resume-front)) 
+- [Frontend Repo](https://github.com/flmngwllm/cloud-resume-front)
